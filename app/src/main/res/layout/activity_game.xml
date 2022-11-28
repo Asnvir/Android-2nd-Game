@@ -367,7 +367,7 @@
                     android:backgroundTint="@color/black"
                     app:icon="@drawable/img_right_arrow"
                     app:iconTint="@color/white"
-                    tools:ignore="SpeakableTextPresentCheck">
+                    tools:ignore="RelativeOverlap,SpeakableTextPresentCheck">
 
 
                 </com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton>

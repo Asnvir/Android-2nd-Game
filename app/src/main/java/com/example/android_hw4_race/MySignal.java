@@ -12,34 +12,28 @@ public class MySignal {
 
     private Context context;
 
-    private MySignal(Context context){
+    private MySignal(Context context) {
         this.context = context;
     }
 
-    public static void init(Context context){
-        if(mySignal == null){
+    public static void init(Context context) {
+        if (mySignal == null) {
             mySignal = new MySignal(context);
         }
     }
 
-
-    public static MySignal getInstance(){
+    public static MySignal getInstance() {
         return mySignal;
     }
 
-
-
-
-
-    public void toast(String text){
+    public void toast(String text) {
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
     }
 
-
-    public void vibrate(){
+    public void vibrate() {
         Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
         } else {
             v.vibrate(500);

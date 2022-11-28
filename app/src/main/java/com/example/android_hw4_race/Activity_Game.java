@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 
 
-import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 import java.util.ArrayList;
@@ -22,17 +21,16 @@ public class Activity_Game extends AppCompatActivity {
     private static final int NUM_OF_ROWS = 4;
     private static final int NUM_OF_COLUMNS = 3;
     private static final int NUM_OF_CARS = 3;
-    private static final int NUM_OF_BTNS = 2;
+    private static final int NUM_OF_BUTTONS = 2;
     private static final int DELAY = 1000;
 
-    private AppCompatImageView game_IMG_background;
     private ArrayList<AppCompatImageView> game_IMG_Hearts;
     private ArrayList<ArrayList<AppCompatImageView>> game_IMG_Bombs;
     private ArrayList<AppCompatImageView> game_IMG_Cars;
     private ArrayList<ExtendedFloatingActionButton> game_BTNS;
+    private boolean isActiveButtons = true;
 
-    private Timer timer = new Timer();
-    private boolean isTimerEnabled = false;
+    private Timer timer;
     GameManager gameManager;
 
 
@@ -44,7 +42,8 @@ public class Activity_Game extends AppCompatActivity {
         MySignal.getInstance().vibrate();
     }
 
-    public void renderCars(ArrayList<Item> carItems) {
+    public void renderCars() {
+        ArrayList<Item> carItems = gameManager.getCarItems();
         int numOfCars = carItems.size();
         for (int index = 0; index < numOfCars; index++) {
             AppCompatImageView imgCar = game_IMG_Cars.get(index);
@@ -57,7 +56,8 @@ public class Activity_Game extends AppCompatActivity {
         }
     }
 
-    public void renderHearts(ArrayList<Item> heartItems) {
+    public void renderHearts() {
+        ArrayList<Item> heartItems = gameManager.getHeartItems();
         int numOfHearts = heartItems.size();
         for (int index = 0; index < numOfHearts; index++) {
             AppCompatImageView imgHeart = game_IMG_Hearts.get(index);
@@ -70,13 +70,47 @@ public class Activity_Game extends AppCompatActivity {
         }
     }
 
-
     public void updateUI() {
-        gameManager.updateBombs();
+
+        boolean isBoom = gameManager.isBoom();
+        if (isBoom) {
+            String msg = gameManager.getSTRING_LOST_1_LIFE();
+            renderHearts();
+            renderToast(msg);
+            makeVibrate();
+        }
+        renderBombsTable();
     }
 
-    public void renderBombsTable(ArrayList<ArrayList<Item>> matrixBombItems) {
+    private void renderGameOver() {
+        String msg = gameManager.getSTRING_GAME_OVER();
+        renderHearts();
+        renderBombsTable();
+        renderToast(msg);
+        makeVibrate();
+    }
+
+    private void updateUIGameOver() {
+        renderGameOver();
+        isActiveButtons = false;
+        stopTimer();
+    }
+
+    public void updateUIonTime() {
+        gameManager.updateBombs();
+        boolean isGameOver = gameManager.isGameOver();
+
+        if (isGameOver) {
+            updateUIGameOver();
+        } else {
+            updateUI();
+        }
+    }
+
+    public void renderBombsTable() {
+        ArrayList<ArrayList<Item>> matrixBombItems = gameManager.getMatrixBombItems();
         int numOfRows = matrixBombItems.size();
+
         for (int rowIndex = 0; rowIndex < numOfRows; rowIndex++) {
             int numOfColumns = matrixBombItems.get(rowIndex).size();
             for (int columnIndex = 0; columnIndex < numOfColumns; columnIndex++) {
@@ -93,83 +127,69 @@ public class Activity_Game extends AppCompatActivity {
     }
 
     private void renderView() {
-        renderHearts(gameManager.getHeartItems());
-        renderBombsTable(gameManager.getMatrixBombItems());
-        renderCars(gameManager.getCarItems());
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        isTimerEnabled = true;
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        isTimerEnabled = false;
-    }
-
-    private void initTimer() {
-        timer = new Timer();
-        isTimerEnabled = true;
-        starTimer();
-    }
-
-    private void starTimer() {
-
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                if (isTimerEnabled) {
-                    runOnUiThread(() -> updateUI());
-                }
-            }
-        }, DELAY, DELAY);
+        renderHearts();
+        renderBombsTable();
+        renderCars();
     }
 
     private void stopTimer() {
         timer.cancel();
     }
 
-    public void gameOver() {
+    @Override
+    protected void onPause() {
+        super.onPause();
         stopTimer();
+    }
+
+    private void startTimer() {
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(() -> updateUIonTime());
+            }
+        }, DELAY, DELAY);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startTimer();
     }
 
     private void initBTNS() {
 
         game_BTNS.get(0).setOnClickListener(v -> {
-            gameManager.clicked("left");
+            if (isActiveButtons) {
+                gameManager.clicked("left");
+                renderCars();
+            }
         });
+
         game_BTNS.get(1).setOnClickListener(v -> {
-            gameManager.clicked("right");
+            if (isActiveButtons) {
+                gameManager.clicked("right");
+                renderCars();
+            }
         });
     }
 
     private void initGameManager() {
-        gameManager = new GameManager(game_IMG_Hearts.size(), NUM_OF_ROWS, NUM_OF_COLUMNS, this);
+        gameManager = new GameManager(game_IMG_Hearts.size(), NUM_OF_ROWS, NUM_OF_COLUMNS);
         gameManager.initItems(game_IMG_Hearts, "hearts");
         gameManager.initBombsMatrix(game_IMG_Bombs);
         gameManager.initItems(game_IMG_Cars, "cars");
     }
 
-    private void initBackground() {
-        Glide
-                .with(Activity_Game.this)
-                .load("https://www.shutterstock.com/image-illustration/empty-clean-gray-background-600w-1597354276.jpg")
-                .into(game_IMG_background);
-    }
-
     private void init() {
-        initBackground();
         initGameManager();
         initBTNS();
-        initTimer();
     }
 
     private void findButtons() {
-        game_BTNS = new ArrayList<>(NUM_OF_BTNS);
-        for (int buttonIndex = 0; buttonIndex < NUM_OF_BTNS; buttonIndex++) {
+        game_BTNS = new ArrayList<>();
+        for (int buttonIndex = 0; buttonIndex < NUM_OF_BUTTONS; buttonIndex++) {
             String btn_name = "game_BTN_" + String.valueOf(buttonIndex);
             int btn_ID = getResources().getIdentifier(btn_name, "id", getPackageName());
             ExtendedFloatingActionButton current_BTN = findViewById(btn_ID);
@@ -210,12 +230,7 @@ public class Activity_Game extends AppCompatActivity {
         }
     }
 
-    private void findBackground() {
-        game_IMG_background = findViewById(R.id.game_IMG_background);
-    }
-
     private void findViews() {
-        findBackground();
         findHearts();
         findBombs();
         findCars();
