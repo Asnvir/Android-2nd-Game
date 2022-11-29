@@ -176,7 +176,10 @@ public class Activity_Game extends AppCompatActivity {
     }
 
     private void initGameManager() {
-        gameManager = GameManager.getInstance(game_IMG_Hearts.size(), NUM_OF_ROWS, NUM_OF_COLUMNS);
+        gameManager = GameManager.getInstance()
+                .setNumOfHearts(game_IMG_Hearts.size())
+                .setNumOfRows(NUM_OF_ROWS)
+                .setNumOfColumns(NUM_OF_COLUMNS);
         gameManager.initItems(game_IMG_Hearts, "hearts");
         gameManager.initBombsMatrix(game_IMG_Bombs);
         gameManager.initItems(game_IMG_Cars, "cars");

@@ -9,8 +9,8 @@ import java.util.Random;
 public class GameManager {
     private static GameManager gameManager = null;
     private int numOfHearts;
-    private final int numOfRows;
-    private final int numOfColumns;
+    private int numOfRows;
+    private int numOfColumns;
     private int indexHeartRemove = -1;
     private int currentColumnCar;
     private final ArrayList<ArrayList<Item>> matrixBombItems = new ArrayList<>();
@@ -22,18 +22,29 @@ public class GameManager {
     private boolean isGameOver = false;
 
 
-    public static GameManager getInstance(int numOfHearts, int numOfRows, int numOfColumns) {
+    private GameManager() {
+    }
+
+    public static GameManager getInstance() {
         if (gameManager == null) {
-            gameManager = new GameManager(numOfHearts, numOfRows, numOfColumns);
+            gameManager = new GameManager();
         }
         return gameManager;
     }
 
-    private GameManager(int numOfHearts, int numOfRows, int numOfColumns) {
+    public GameManager setNumOfHearts(int numOfHearts) {
         this.numOfHearts = numOfHearts;
-        this.numOfRows = numOfRows;
-        this.numOfColumns = numOfColumns;
+        return this;
+    }
 
+    public GameManager setNumOfRows(int numOfRows) {
+        this.numOfRows = numOfRows;
+        return this;
+    }
+
+    public GameManager setNumOfColumns(int numOfColumns) {
+        this.numOfColumns = numOfColumns;
+        return this;
     }
 
     private int getRandom(int boundary) {
