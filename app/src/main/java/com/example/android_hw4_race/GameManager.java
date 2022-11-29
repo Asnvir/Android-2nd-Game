@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class GameManager {
+    private static GameManager gameManager = null;
     private int numOfHearts;
     private final int numOfRows;
     private final int numOfColumns;
@@ -21,7 +22,14 @@ public class GameManager {
     private boolean isGameOver = false;
 
 
-    public GameManager(int numOfHearts, int numOfRows, int numOfColumns) {
+    public static GameManager getInstance(int numOfHearts, int numOfRows, int numOfColumns) {
+        if (gameManager == null) {
+            gameManager = new GameManager(numOfHearts, numOfRows, numOfColumns);
+        }
+        return gameManager;
+    }
+
+    private GameManager(int numOfHearts, int numOfRows, int numOfColumns) {
         this.numOfHearts = numOfHearts;
         this.numOfRows = numOfRows;
         this.numOfColumns = numOfColumns;
