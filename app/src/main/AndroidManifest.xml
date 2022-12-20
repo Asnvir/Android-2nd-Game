@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="LockedOrientationActivity" >
 
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-        android:name=".MyApp"
+        android:name=".init.MyApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -15,20 +18,38 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidHW4Race"
-        tools:targetApi="31">
+        tools:targetApi="31" >
+        <meta-data
+            android:name="android.app.lib_name"
+            android:value="" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAmO_aGBP4uhyYDyDhF7XIMSPbJD3kw2Is" />
+
         <activity
-            android:name=".Activity_Game"
+            android:name=".activities.Activity_Welcome"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
         </activity>
+
+        <activity
+            android:name=".activities.Activity_ChooseController"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.Activity_Button_Speed"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.Activity_Game"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.Activity_HighestScoreRecords"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

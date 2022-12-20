@@ -1,4 +1,4 @@
-package com.example.android_hw4_race;
+package com.example.android_hw4_race.init;
 
 import android.content.Context;
 import android.os.Build;
@@ -8,22 +8,21 @@ import android.widget.Toast;
 
 public class MySignal {
 
-    private static MySignal mySignal = null;
-
-    private Context context;
+    private static MySignal instance;
+    private final Context context;
 
     private MySignal(Context context) {
-        this.context = context;
+        this.context = context.getApplicationContext();
     }
 
     public static void init(Context context) {
-        if (mySignal == null) {
-            mySignal = new MySignal(context);
+        if (instance == null) {
+            instance = new MySignal(context);
         }
     }
 
     public static MySignal getInstance() {
-        return mySignal;
+        return instance;
     }
 
     public void toast(String text) {
@@ -40,3 +39,4 @@ public class MySignal {
         }
     }
 }
+

@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">Android-HW4-Race</string>
+    <string name="app_name">Game-Race</string>
+    <string name="button_mode">Button mode</string>
+    <string name="sensor_mode">Sensor mode</string>
+    <string name="top_scores">Top scores</string>
+    <string name="start_game">Start game</string>
+    <string name="mode">Mode</string>
+    <string name="button">Button</string>
+    <string name="sensor">Sensor</string>
+    <string name="score">Score</string>
 </resources>
