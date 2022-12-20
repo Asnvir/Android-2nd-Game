@@ -11,19 +11,19 @@ import android.widget.ProgressBar;
 import com.example.android_hw4_race.data.GameManager;
 import com.example.android_hw4_race.R;
 import com.example.android_hw4_race.init.MyImage;
+import com.example.android_hw4_race.util.Util;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 public class Activity_Button_Speed extends AppCompatActivity {
     private ExtendedFloatingActionButton button_speed_BTN_FastMode;
     private ExtendedFloatingActionButton button_speed_BTN_SlowMode;
     private AppCompatImageView button_speed_IMG_background;
-    private final String url_background = "https://raw.githubusercontent.com/Asnvir/Anroid-Game-Race-V2/main/images/background_img.jpg";
     private ProgressBar button_speed_IMG_progress;
     private final int BTN_FAST_MODE = R.id.button_speed_BTN_FastMode;
     private final int BTN_SLOW_MODE = R.id.button_speed_BTN_SlowMode;
 
     private void initBackground() {
-        MyImage.getInstance().loadImage(button_speed_IMG_background,url_background,button_speed_IMG_progress);
+        MyImage.getInstance().loadImage(button_speed_IMG_background, Util.BACKGROUND_IMG_URL,button_speed_IMG_progress);
     }
 
 

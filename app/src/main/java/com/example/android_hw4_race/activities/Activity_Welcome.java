@@ -12,6 +12,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import com.example.android_hw4_race.R;
 import com.example.android_hw4_race.init.MyGPS;
 import com.example.android_hw4_race.init.MyImage;
+import com.example.android_hw4_race.util.Util;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 public class Activity_Welcome extends AppCompatActivity {
@@ -20,11 +21,9 @@ public class Activity_Welcome extends AppCompatActivity {
     private AppCompatImageView welcome_IMG_background;
     private ExtendedFloatingActionButton welcome_BTN_top_scores;
     private ExtendedFloatingActionButton welcome_BTN_start_game;
-    private final String url_background = "https://raw.githubusercontent.com/Asnvir/Anroid-Game-Race-V2/main/images/background_img.jpg";
-
 
     private void initBackground() {
-        MyImage.getInstance().loadImage(welcome_IMG_background, url_background, welcome_IMG_progress);
+        MyImage.getInstance().loadImage(welcome_IMG_background, Util.BACKGROUND_IMG_URL, welcome_IMG_progress);
     }
 
     private void initViews() {

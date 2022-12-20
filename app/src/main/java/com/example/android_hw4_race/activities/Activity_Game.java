@@ -21,6 +21,7 @@ import com.example.android_hw4_race.util.TypeItem;
 import com.example.android_hw4_race.util.TypeVisibility;
 import com.example.android_hw4_race.init.MyGPS;
 import com.example.android_hw4_race.init.MySignal;
+import com.example.android_hw4_race.util.Util;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textview.MaterialTextView;
 
@@ -45,7 +46,6 @@ public class Activity_Game extends AppCompatActivity {
     private boolean isActiveController = true;
     private MaterialTextView game_LBL_score_value;
     private ProgressBar game_IMG_progress;
-    private final String url_background = "https://raw.githubusercontent.com/Asnvir/Anroid-Game-Race-V2/main/images/background_img.jpg";
     private AppCompatImageView game_IMG_background;
 
     private Timer timerUpdateBombs;
@@ -289,7 +289,7 @@ public class Activity_Game extends AppCompatActivity {
     }
 
     private void initBackground() {
-        MyImage.getInstance().loadImage(game_IMG_background,url_background,game_IMG_progress);
+        MyImage.getInstance().loadImage(game_IMG_background, Util.BACKGROUND_IMG_URL,game_IMG_progress);
 
     }
 

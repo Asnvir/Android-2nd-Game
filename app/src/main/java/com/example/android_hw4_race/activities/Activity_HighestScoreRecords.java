@@ -15,6 +15,7 @@ import com.example.android_hw4_race.data.ListOfScoreRecords;
 import com.example.android_hw4_race.R;
 import com.example.android_hw4_race.data.ScoreRecord;
 import com.example.android_hw4_race.init.MyImage;
+import com.example.android_hw4_race.util.Util;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -26,7 +27,6 @@ public class Activity_HighestScoreRecords extends AppCompatActivity {
     private AppCompatImageView highestScoreRecords_IMG_background;
     private ExtendedFloatingActionButton highestScoreRecords_BTN_menu;
     private ExtendedFloatingActionButton highestScoreRecords_BTN_exit;
-    private final String url_background = "https://raw.githubusercontent.com/Asnvir/Anroid-Game-Race-V2/main/images/background_img.jpg";
     private Fragment_List fragment_list;
     private Fragment_Map fragment_map;
 
@@ -107,7 +107,7 @@ public class Activity_HighestScoreRecords extends AppCompatActivity {
     }
 
     private void initBackground() {
-        MyImage.getInstance().loadImage(highestScoreRecords_IMG_background, url_background, highestScoreRecords_IMG_progress);
+        MyImage.getInstance().loadImage(highestScoreRecords_IMG_background, Util.BACKGROUND_IMG_URL, highestScoreRecords_IMG_progress);
     }
 
     private void findViews() {

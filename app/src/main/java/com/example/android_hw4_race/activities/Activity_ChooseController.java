@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import com.example.android_hw4_race.data.GameManager;
 import com.example.android_hw4_race.R;
 import com.example.android_hw4_race.init.MyImage;
+import com.example.android_hw4_race.util.Util;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 public class Activity_ChooseController extends AppCompatActivity {
@@ -18,12 +19,11 @@ public class Activity_ChooseController extends AppCompatActivity {
     private ExtendedFloatingActionButton choose_controller_BTN_SensorMode;
     private ExtendedFloatingActionButton choose_controller_BTN_ButtonMode;
     private AppCompatImageView choose_controller_IMG_background;
-    private final String url_background = "https://raw.githubusercontent.com/Asnvir/Anroid-Game-Race-V2/main/images/background_img.jpg";
     private ProgressBar choose_controller_IMG_progress;
 
 
     private void initBackground() {
-        MyImage.getInstance().loadImage(choose_controller_IMG_background,url_background,choose_controller_IMG_progress);
+        MyImage.getInstance().loadImage(choose_controller_IMG_background, Util.BACKGROUND_IMG_URL,choose_controller_IMG_progress);
     }
 
 
