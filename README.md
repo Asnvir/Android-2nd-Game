@@ -1,2 +1,3 @@
 # Android-2nd-Game
-![image](https://user-images.githubusercontent.com/51398263/208963165-dba4ff2a-575c-40e5-bfc3-eb778bc97209.png)
+![image](https://user-images.githubusercontent.com/51398263/208963291-ec546ab6-5a23-4932-8727-2f7c04b4df5d.png)
+
