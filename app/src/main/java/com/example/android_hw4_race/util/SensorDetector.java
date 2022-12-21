@@ -47,13 +47,13 @@ public class SensorDetector {
 
     private void calculateSideMovement(float x) {
 
-        if (x < -1.8) {
+        if (x < -2.5) {
             if (callback_movement != null) {
                 callback_movement.moveRight();
             }
         }
 
-        if (x > 1.8) {
+        if (x > 2.5) {
             if (callback_movement != null) {
                 callback_movement.moveLeft();
             }
